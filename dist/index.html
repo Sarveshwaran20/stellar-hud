@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stellar HUD</title>
+    <script type="module" crossorigin src="/APOD-site/assets/index-BhqTc0_N.js"></script>
+    <link rel="stylesheet" crossorigin href="/APOD-site/assets/index-WsrFu0kK.css">
+  </head>
+  <body>
+    <div class="scanlines"></div>
+
+    <div id="app">
+      <main class="hud-interface">
+        <section class="top-console">
+          <div class="search-comms-wrapper">
+            <div class="primary-directive top-bar-module">
+              <form id="directive-form">
+                <span class="prompt">obj:~$</span>
+                <input
+                  type="text"
+                  id="directive-input"
+                  placeholder="Set daily objective..."
+                  autocomplete="off"
+                />
+              </form>
+              <div id="directive-display" class="hidden">
+                <span class="prompt">focus:</span>
+                <span id="directive-text"></span>
+                <button id="clear-directive" title="Clear Objective">
+                  [X]
+                </button>
+              </div>
+            </div>
+
+            <form id="search-form" class="command-console">
+              <span class="prompt">root@system:~$</span>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Enter search query..."
+                autocomplete="off"
+                autofocus
+              />
+            </form>
+
+            <div class="top-comms">
+              <button id="toggle-comms">[ INITIATE AUDIO ]</button>
+              <button id="trigger-lockdown" class="danger-btn">
+                [ LOCKDOWN ]
+              </button>
+              <audio
+                id="comms-audio"
+                src="https://ice1.somafm.com/deepspaceone-128-mp3"
+                crossorigin="anonymous"
+              ></audio>
+            </div>
+          </div>
+
+          <div class="network-relays">
+            <a href="https://github.com" class="relay-node">GITHUB_NODE</a>
+            <a href="https://youtube.com" class="relay-node">MEDIA_LINK</a>
+            <a href="https://reddit.com" class="relay-node">FORUM_NET</a>
+            <a href="https://chatgpt.com" class="relay-node">AI_CORE</a>
+          </div>
+        </section>
+
+        <section class="bottom-dashboard">
+          <div class="dashboard-col col-left">
+            <div class="sys-status">
+              <span class="pulse-dot"></span>
+              <span id="system-status-text">UPLINK ESTABLISHED</span>
+            </div>
+            <h1 id="time-display">00:00:00</h1>
+            <h2 id="date-display">LOADING DATA...</h2>
+
+            <div class="system-diagnostics">
+              <h3 class="panel-title">// DIAGNOSTICS</h3>
+              <div class="diag-row">
+                <span>PWR:</span> <span id="battery-level">CALCULATING...</span>
+              </div>
+              <div class="diag-row">
+                <span>NET:</span> <span id="network-status">SCANNING...</span>
+              </div>
+            </div>
+
+            <div class="environmental-sensors">
+              <h3 class="panel-title">// ATMOSPHERICS</h3>
+              <div class="diag-row">
+                <span>LOC:</span>
+                <span id="coords-display">AWAITING GPS...</span>
+              </div>
+              <div class="diag-row">
+                <span>TEMP:</span> <span id="temp-display">SCANNING...</span>
+              </div>
+              <div class="diag-row">
+                <span>COND:</span>
+                <span id="condition-display">SCANNING...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-col col-center">
+            <div class="tactical-timer">
+              <h3 class="panel-title">// TACTICAL TIMER</h3>
+              <div id="timer-display">25:00</div>
+              <div class="timer-controls">
+                <button id="timer-start">[ ENGAGE ]</button>
+                <button id="timer-reset">[ ABORT ]</button>
+              </div>
+            </div>
+
+            <div class="mission-log-container">
+              <h3 class="panel-title">// MISSION LOG</h3>
+              <textarea
+                id="mission-log"
+                placeholder="Input tactical notes here..."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="dashboard-col col-right">
+            <div class="hud-data-panel">
+              <div class="panel-header">
+                <h3>TARGET: ASTRONOMY PICTURE OF THE DAY</h3>
+              </div>
+              <div class="panel-content">
+                <h2 id="apod-title">Initiating Deep Space Scan...</h2>
+                <p id="apod-desc">
+                  Awaiting telemetry data from NASA mainframe...
+                </p>
+                <span id="apod-copyright"></span>
+              </div>
+            </div>
+            <div class="iss-tracker-panel">
+              <h3 class="panel-title">// ORBITAL TELEMETRY: ISS</h3>
+              <div class="diag-row">
+                <span>LAT/LON:</span> <span id="iss-coords">SCANNING...</span>
+              </div>
+              <div class="diag-row">
+                <span>VELOCITY:</span>
+                <span id="iss-velocity">SCANNING... </span>
+              </div>
+              <div class="diag-row">
+                <span>ALTITUDE:</span>
+                <span id="iss-altitude">SCANNING...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+  </body>
+</html>
