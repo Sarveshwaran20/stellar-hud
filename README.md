@@ -30,6 +30,6 @@ If you want to run the project locally or modify the source code, you'll need **
 
 1. **Clone and install dependencies:**
 ```bash
-git clone [https://github.com/sarveshwaran20/Stellar-HUD.git](https://github.com/sarveshwaran20/Stellar-HUD.git)
+git clone [https://github.com/Sarveshwaran20/stellar-hud.git](https://github.com/Sarveshwaran20/stellar-hud.git)
 cd Stellar-HUD
 npm install
