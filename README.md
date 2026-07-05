@@ -1,35 +1,80 @@
-# Stellar HUD
-A sci-fi-inspired browser dashboard that tracks live orbital telemetry, atmospheric data, and system diagnostics to turn your new tab page into a tactical command center.
+Hey! Just knocked together this custom web-based desktop setup. It’s got a super clean, retro-future hacker aesthetic going on with solid dark windows, neon glowing borders, and an animated telemetry clock sitting right in the center of the display.
+
+I also built in a bunch of functional apps, modular window handling, and a companion script system that hooks up right onto the dock framework.
+
+🚀 Cool Stuff It Does
+📡 The Main HUD Display
+Dynamic 24h Clock: Keeps real-time track of military timestamps right in the middle of the screen.
+
+Live Weather Link: Drops your real location coordinates into the OpenWeather API loop to pull your actual city name and temperature stats.
+
+Rotating Ring Arrays: Dope concentric structural circles spinning continuously in the background layer.
+
+💻 Built-in Apps Matrix
+J.A.R.V.I.S. Interactive Shell: A terminal command interface where you can spin up apps, wipe the output log, or launch a decryption vault brute-force game.
+
+Secure Notes Vault: A text area to drop direct logs that save to your client database storage. Supports exporting directly down into local text files.
+
+Blueprint Schematic Canvas: An image upload bench that runs retro canvas visual filter overlays (Hologram, Nightvision, and Warning modes).
+
+Recon Media Feeds: Sandboxed visual streaming iframe layer.
+
+Neural Snake Arcade: Standard retro game board safely set up so that fast key-presses won't conflict with background system performance.
+
+⏱️ Quick Diagnostic Tools
+Tactical Timer: A clean custom execution countdown with basic Engage and Abort control buttons.
+
+System Diagnostics: Hooks directly into browser status channels to output live battery percentages and network streams.
+
+Audio Link Node: A direct media reader that lets you select a local music track and play it natively without dealing with external API verification keys.
+
+Mainframe Calculator: Standard computation utility styled directly into a terminal-matching number grid.
+
+👾 The Malware Spirit
+Dock Pacing Automation: A little companion script asset that slides left and right over your bottom menu shortcuts. It's bounded safely so it never clips or overlaps buttons.
+
+Idle Sleep Routines: Uses keyboard/mouse event listeners to drop the pet into a dim breathing sleep cycle if you walk away from the computer for 45 seconds.
+
+Speech Alerts: Spits out random matrix speech bubbles and hacking tooltips over the taskbar depending on how high its internal hunger variables climb.
+
+📂 File Setup
+Bash
+├── index.html   # HTML layout framework, apps windows, and centered taskbar menu
+├── style.css    # Full theme colors, CRT scanlines, layouts, and neon glow effects
+└── script.js    # Logic handling for window positioning, apps, and pet automation
+🖥️ Running it Locally
+Throw the project folder into your dev environment.
+
+Spin up a basic local server process (like VS Code's Live Server extension, or use a quick terminal hook):
+
+Bash
+python -m http.server 5500
+Load the output port in a web browser: http://127.0.0.1:5500
+
+Important: Say yes to the browser location popup on load if you want the HUD to correctly sync up with local satellite weather stats!
+
+⌨️ J.A.R.V.I.S. Terminal Sheet
+Open the mainframe console box and type these keywords directly into the prompt line:
+
+help - Lists out authorized environment paths.
+
+open logs - Pulls open the log text utility window.
+
+open schematics - Displays the filtering photo workspace canvas.
+
+open media - Renders the video reconnaissance frame.
+
+play snake - Fires up the interactive arcade grid.
+
+decrypt vault - Prompts you to guess a random code before your attempts wipe out.
+
+protocol 84 - Engages a massive emergency red countdown layer.
+
+close all - Shuts down every active app layout menu instantly.
+
+clear - Wipes all printed prompt lines from the screen.
+
+
+
 
 ![Stellar HUD Screenshot](screen.png)
-
-### 🚀 [Launch the Live Command Center Here](https://sarveshwaran20.github.io/stellar-hud/)
-
----
-
-## ⚡ Quick Start
-To use the live version immediately, just open the link above and set it as your browser's homepage or new tab URL. 
-
-*Note: Allow location permissions when prompted so the environmental sensors can pull your local weather data.*
-
----
-
-## 🛰️ Features
-* **Real-Time ISS Tracking:** Scrapes and displays the exact latitude, longitude, velocity, and altitude of the International Space Station, updating every 3 seconds.
-* **Hardware & Atmospheric Sensors:** Taps into native browser APIs to display live laptop battery and network connection status, alongside local weather pulled via GPS.
-* **Tactical Focus Core:** Includes a 25-minute Pomodoro countdown timer and a persistent, auto-saving mission log for daily objectives.
-* **Deep Space Comms:** A built-in audio receiver that streams ambient space music directly from SomaFM's *Deep Space One*.
-* **NASA APOD Integration:** Automatically fetches the daily Astronomy Picture of the Day and renders it as the background with its official telemetry description.
-* **System Lockdown:** A manual safety switch that triggers a global CSS-driven red-alert state, flashing the entire interface crimson.
-
----
-
-## 🛠️ How to run it locally
-
-If you want to run the project locally or modify the source code, you'll need **Node.js (v18+)**.
-
-1. **Clone and install dependencies:**
-```bash
-git clone [https://github.com/Sarveshwaran20/stellar-hud.git](https://github.com/Sarveshwaran20/stellar-hud.git)
-cd Stellar-HUD
-npm install
