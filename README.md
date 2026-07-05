@@ -1,7 +1,7 @@
 # Stellar HUD
 A sci-fi-inspired browser dashboard that tracks live orbital telemetry, atmospheric data, and system diagnostics to turn your new tab page into a tactical command center.
 
-![Stellar HUD Screenshot](screenshot.png)
+![Stellar HUD Screenshot](screen.png)
 
 ### 🚀 [Launch the Live Command Center Here](https://sarveshwaran20.github.io/stellar-hud/)
 
