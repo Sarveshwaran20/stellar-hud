@@ -26,7 +26,12 @@
               <div id="directive-display" class="hidden">
                 <span class="prompt">focus:</span>
                 <span id="directive-text"></span>
-                <button id="clear-directive" title="Clear Objective">
+                <button
+                  id="clear-directive"
+                  title="Clear Objective"
+                  class="brutal-btn danger-btn"
+                  style="padding: 0 0.5rem; margin-left: 1rem"
+                >
                   [X]
                 </button>
               </div>
@@ -44,9 +49,12 @@
             </form>
 
             <div class="top-comms">
-              <button id="toggle-comms">[ INITIATE AUDIO ]</button>
-              <button id="trigger-lockdown" class="danger-btn">
+              <button id="toggle-comms" class="brutal-btn">[ AUDIO ]</button>
+              <button id="trigger-lockdown" class="brutal-btn danger-btn">
                 [ LOCKDOWN ]
+              </button>
+              <button id="eject-btn" class="brutal-btn hazard-btn">
+                [ EJECT ]
               </button>
               <audio
                 id="comms-audio"
@@ -57,18 +65,25 @@
           </div>
 
           <div class="network-relays">
-            <a href="https://github.com" class="relay-node">GITHUB_NODE</a>
-            <a href="https://youtube.com" class="relay-node">MEDIA_LINK</a>
-            <a href="https://reddit.com" class="relay-node">FORUM_NET</a>
-            <a href="https://chatgpt.com" class="relay-node">AI_CORE</a>
+            <a href="https://github.com" class="relay-node brutal-btn"
+              >GITHUB_NODE</a
+            >
+            <a href="https://youtube.com" class="relay-node brutal-btn"
+              >MEDIA_LINK</a
+            >
+            <a href="https://reddit.com" class="relay-node brutal-btn"
+              >FORUM_NET</a
+            >
+            <a href="https://chatgpt.com" class="relay-node brutal-btn"
+              >AI_CORE</a
+            >
           </div>
         </section>
 
         <section class="bottom-dashboard">
           <div class="dashboard-col col-left">
             <div class="sys-status">
-              <span class="pulse-dot"></span>
-              <span id="system-status-text">UPLINK ESTABLISHED</span>
+              <span id="system-status-text">UPLINK ESTABLISHED // ONLINE</span>
             </div>
             <h1 id="time-display">00:00:00</h1>
             <h2 id="date-display">LOADING DATA...</h2>
@@ -104,8 +119,10 @@
               <h3 class="panel-title">// TACTICAL TIMER</h3>
               <div id="timer-display">25:00</div>
               <div class="timer-controls">
-                <button id="timer-start">[ ENGAGE ]</button>
-                <button id="timer-reset">[ ABORT ]</button>
+                <button id="timer-start" class="brutal-btn">[ ENGAGE ]</button>
+                <button id="timer-reset" class="brutal-btn danger-btn">
+                  [ ABORT ]
+                </button>
               </div>
             </div>
 
@@ -119,18 +136,6 @@
           </div>
 
           <div class="dashboard-col col-right">
-            <div class="hud-data-panel">
-              <div class="panel-header">
-                <h3>TARGET: ASTRONOMY PICTURE OF THE DAY</h3>
-              </div>
-              <div class="panel-content">
-                <h2 id="apod-title">Initiating Deep Space Scan...</h2>
-                <p id="apod-desc">
-                  Awaiting telemetry data from NASA mainframe...
-                </p>
-                <span id="apod-copyright"></span>
-              </div>
-            </div>
             <div class="iss-tracker-panel">
               <h3 class="panel-title">// ORBITAL TELEMETRY: ISS</h3>
               <div class="diag-row">
@@ -138,16 +143,49 @@
               </div>
               <div class="diag-row">
                 <span>VELOCITY:</span>
-                <span id="iss-velocity">SCANNING... </span>
+                <span id="iss-velocity">SCANNING...</span>
               </div>
               <div class="diag-row">
                 <span>ALTITUDE:</span>
                 <span id="iss-altitude">SCANNING...</span>
               </div>
             </div>
+
+            <div class="asteroid-panel">
+              <h3 class="panel-title">// NEAR-EARTH OBJECT WARNING SYSTEM</h3>
+              <div class="diag-row">
+                <span>TARGET:</span> <span id="ast-name">SCANNING...</span>
+              </div>
+              <div class="diag-row">
+                <span>APPROACH:</span> <span id="ast-miss">SCANNING...</span>
+              </div>
+              <div class="diag-row">
+                <span>VELOCITY:</span> <span id="ast-vel">SCANNING...</span>
+              </div>
+              <div class="diag-row">
+                <span>THREAT LEVEL:</span>
+                <span id="ast-threat">SCANNING...</span>
+              </div>
+            </div>
+
+            <div class="hud-data-panel">
+              <h3 class="panel-title">
+                // TARGET: ASTRONOMY PICTURE OF THE DAY
+              </h3>
+              <h2 id="apod-title">Initiating Deep Space Scan...</h2>
+              <p id="apod-desc">
+                Awaiting telemetry data from NASA mainframe...
+              </p>
+            </div>
           </div>
         </section>
       </main>
+    </div>
+
+    <div id="eject-overlay" class="hidden">
+      <h1>CRITICAL UPLINK FAILURE</h1>
+      <p>CONNECTION TERMINATED.</p>
+      <button id="reboot-btn" class="brutal-btn">[ REBOOT SYSTEM ]</button>
     </div>
 
     <script type="module" src="/src/main.js"></script>

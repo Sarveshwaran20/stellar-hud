@@ -3,7 +3,6 @@ function updateClock() {
   const timeDisplay = document.getElementById("time-display");
   const dateDisplay = document.getElementById("date-display");
   const now = new Date();
-
   timeDisplay.textContent = now.toLocaleTimeString("en-US", { hour12: false });
   dateDisplay.textContent = now
     .toLocaleDateString("en-US", {
@@ -20,16 +19,13 @@ updateClock();
 // --- 2. COMMAND CONSOLE (SEARCH) ---
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
-
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const query = searchInput.value.trim();
   if (query) {
-    if (query.startsWith("http://") || query.startsWith("https://")) {
-      window.location.href = query;
-    } else {
-      window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-    }
+    window.location.href = query.startsWith("http")
+      ? query
+      : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   }
 });
 
@@ -38,16 +34,16 @@ const commsAudio = document.getElementById("comms-audio");
 const toggleCommsBtn = document.getElementById("toggle-comms");
 let isCommsPlaying = false;
 commsAudio.volume = 0.4;
-
 toggleCommsBtn.addEventListener("click", () => {
   if (isCommsPlaying) {
     commsAudio.pause();
-    toggleCommsBtn.textContent = "[ INITIATE AUDIO ]";
-    toggleCommsBtn.style.color = "#b026ff";
+    toggleCommsBtn.textContent = "[ AUDIO ]";
+    toggleCommsBtn.style.background = "transparent";
   } else {
     commsAudio.play();
-    toggleCommsBtn.textContent = "[ MUTE SIGNAL ]";
-    toggleCommsBtn.style.color = "#fff";
+    toggleCommsBtn.textContent = "[ MUTE ]";
+    toggleCommsBtn.style.background = "var(--theme)";
+    toggleCommsBtn.style.color = "var(--bg)";
   }
   isCommsPlaying = !isCommsPlaying;
 });
@@ -70,17 +66,14 @@ function loadDirective() {
     directiveDisplay.classList.add("hidden");
   }
 }
-
 directiveForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const objective = directiveInput.value.trim();
-  if (objective) {
-    localStorage.setItem("primaryDirective", objective);
+  if (directiveInput.value.trim()) {
+    localStorage.setItem("primaryDirective", directiveInput.value.trim());
     loadDirective();
     directiveInput.value = "";
   }
 });
-
 clearDirectiveBtn.addEventListener("click", () => {
   localStorage.removeItem("primaryDirective");
   loadDirective();
@@ -91,7 +84,6 @@ loadDirective();
 const timerDisplay = document.getElementById("timer-display");
 const timerStartBtn = document.getElementById("timer-start");
 const timerResetBtn = document.getElementById("timer-reset");
-
 let timerInterval;
 let timeLeft = 25 * 60;
 let isTimerRunning = false;
@@ -101,12 +93,11 @@ function updateTimerDisplay() {
   const seconds = timeLeft % 60;
   timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
-
 timerStartBtn.addEventListener("click", () => {
   if (isTimerRunning) return;
   isTimerRunning = true;
-  timerStartBtn.style.color = "#fff";
-
+  timerStartBtn.style.background = "var(--theme)";
+  timerStartBtn.style.color = "var(--bg)";
   timerInterval = setInterval(() => {
     if (timeLeft > 0) {
       timeLeft--;
@@ -115,27 +106,25 @@ timerStartBtn.addEventListener("click", () => {
       clearInterval(timerInterval);
       isTimerRunning = false;
       timerDisplay.textContent = "00:00";
-      timerDisplay.style.color = "#f00";
+      timerDisplay.style.color = "var(--danger)";
     }
   }, 1000);
 });
-
 timerResetBtn.addEventListener("click", () => {
   clearInterval(timerInterval);
   isTimerRunning = false;
   timeLeft = 25 * 60;
   updateTimerDisplay();
-  timerDisplay.style.color = "#ffa500";
-  timerStartBtn.style.color = "#ffa500";
+  timerDisplay.style.color = "var(--theme)";
+  timerStartBtn.style.background = "transparent";
+  timerStartBtn.style.color = "var(--theme)";
 });
 
 // --- 6. MISSION LOG ---
 const missionLog = document.getElementById("mission-log");
-const savedLog = localStorage.getItem("missionLogData");
-if (savedLog) {
-  missionLog.value = savedLog;
+if (localStorage.getItem("missionLogData")) {
+  missionLog.value = localStorage.getItem("missionLogData");
 }
-
 missionLog.addEventListener("input", () => {
   localStorage.setItem("missionLogData", missionLog.value);
 });
@@ -144,39 +133,27 @@ missionLog.addEventListener("input", () => {
 async function initDiagnostics() {
   const batteryEl = document.getElementById("battery-level");
   const networkEl = document.getElementById("network-status");
-
   if ("getBattery" in navigator) {
     try {
       const battery = await navigator.getBattery();
-      function updateBattery() {
-        const level = Math.round(battery.level * 100);
-        batteryEl.textContent = `${level}%${battery.charging ? " [AC]" : ""}`;
-        batteryEl.style.color = level <= 20 ? "#f00" : "#0ff";
-      }
+      const updateBattery = () => {
+        batteryEl.textContent = `${Math.round(battery.level * 100)}%${battery.charging ? " [AC]" : ""}`;
+      };
       updateBattery();
       battery.addEventListener("levelchange", updateBattery);
       battery.addEventListener("chargingchange", updateBattery);
     } catch (e) {
-      batteryEl.textContent = "SENSOR OFFLINE";
+      batteryEl.textContent = "OFFLINE";
     }
   } else {
     batteryEl.textContent = "UNSUPPORTED";
   }
 
-  function updateNetwork() {
-    if (navigator.onLine) {
-      const conn = navigator.connection;
-      const speed =
-        conn && conn.effectiveType
-          ? ` (${conn.effectiveType.toUpperCase()})`
-          : "";
-      networkEl.textContent = `ONLINE${speed}`;
-      networkEl.style.color = "#0ff";
-    } else {
-      networkEl.textContent = "CRITICAL: OFFLINE";
-      networkEl.style.color = "#f00";
-    }
-  }
+  const updateNetwork = () => {
+    networkEl.textContent = navigator.onLine
+      ? `ONLINE ${navigator.connection?.effectiveType ? "(" + navigator.connection.effectiveType.toUpperCase() + ")" : ""}`
+      : "CRITICAL: OFFLINE";
+  };
   updateNetwork();
   window.addEventListener("online", updateNetwork);
   window.addEventListener("offline", updateNetwork);
@@ -188,55 +165,45 @@ async function initEnvironmentalSensors() {
   const coordsEl = document.getElementById("coords-display");
   const tempEl = document.getElementById("temp-display");
   const condEl = document.getElementById("condition-display");
-
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         coordsEl.textContent = `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
-
         try {
-          const response = await fetch(
+          const res = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`,
           );
-          if (!response.ok) throw new Error("API Connection Failed");
-          const data = await response.json();
-
-          const weatherCodes = {
-            0: "CLEAR SKY",
-            1: "MAINLY CLEAR",
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          const codes = {
+            0: "CLEAR",
+            1: "CLEAR",
             2: "PARTLY CLOUDY",
             3: "OVERCAST",
             45: "FOG",
-            51: "LIGHT DRIZZLE",
-            61: "LIGHT RAIN",
-            63: "MODERATE RAIN",
-            71: "SNOW FALL",
-            95: "THUNDERSTORM",
+            51: "DRIZZLE",
+            61: "RAIN",
+            71: "SNOW",
+            95: "STORM",
           };
-
           tempEl.textContent = `${Math.round(data.current_weather.temperature)}°C`;
           condEl.textContent =
-            weatherCodes[data.current_weather.weathercode] || "ACTIVE";
-        } catch (error) {
-          tempEl.textContent = "API ERROR";
-          tempEl.style.color = "#f00";
-          condEl.textContent = "OFFLINE";
-          condEl.style.color = "#f00";
+            codes[data.current_weather.weathercode] || "ACTIVE";
+        } catch (e) {
+          tempEl.textContent = "ERR";
+          condEl.textContent = "ERR";
         }
       },
       () => {
-        coordsEl.textContent = "GPS DENIED";
-        coordsEl.style.color = "#f00";
+        coordsEl.textContent = "DENIED";
         tempEl.textContent = "OFFLINE";
         condEl.textContent = "OFFLINE";
       },
     );
   } else {
-    coordsEl.textContent = "GPS UNSUPPORTED";
-    tempEl.textContent = "OFFLINE";
-    condEl.textContent = "OFFLINE";
+    coordsEl.textContent = "UNSUPPORTED";
   }
 }
 initEnvironmentalSensors();
@@ -244,85 +211,111 @@ initEnvironmentalSensors();
 // --- 9. NASA APOD FETCH ---
 async function fetchAPOD() {
   const apiKey = import.meta.env.VITE_NASA_API_KEY || "DEMO_KEY";
-  const url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
-
   const titleEl = document.getElementById("apod-title");
   const descEl = document.getElementById("apod-desc");
-  const statusDot = document.querySelector(".pulse-dot");
-  const statusText = document.getElementById("system-status-text");
-
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (!response.ok)
-      throw new Error(
-        data.error?.message || "Invalid API Key or Rate Limit Reached",
-      );
-
+    const res = await fetch(
+      `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
+    );
+    if (!res.ok) throw new Error("Key Error");
+    const data = await res.json();
     titleEl.textContent = data.title;
     descEl.textContent = data.explanation;
-    if (data.copyright)
-      document.getElementById("apod-copyright").textContent =
-        `© ${data.copyright}`;
-
-    if (data.media_type === "image") {
+    if (data.media_type === "image")
       document.body.style.backgroundImage = `url('${data.hdurl || data.url}')`;
-    } else {
-      document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2048')`;
-      descEl.textContent += "\n\n[MEDIA TYPE: VIDEO - Check NASA APOD Site]";
-    }
   } catch (error) {
-    statusDot.classList.add("error");
-    statusText.textContent = "UPLINK FAILED - CHECK API KEY";
-    statusText.style.color = "#f00";
     titleEl.textContent = "ERROR: SIGNAL LOST";
-    titleEl.style.color = "#f00";
-    descEl.textContent = `SYSTEM ERROR: ${error.message}\n\nEnsure your .env file has a valid NASA API key and you have restarted the server.`;
+    descEl.textContent = "Ensure your .env file has a valid NASA API key.";
   }
 }
+fetchAPOD();
 
+// --- 10. SYSTEM LOCKDOWN ---
 const lockdownBtn = document.getElementById("trigger-lockdown");
 let isLockdown = false;
 lockdownBtn.addEventListener("click", () => {
   isLockdown = !isLockdown;
-  if (isLockdown) {
-    document.body.classList.add("lockdown-active");
-    lockdownBtn.textContent = "[ OVERRIDE LOCKDOWN ]";
-    lockdownBtn.style.color = "#fff";
-    lockdownBtn.style.background = "#f00";
-  } else {
-    document.body.classList.remove("lockdown-active");
-    lockdownBtn.textContent = "[ LOCKDOWN ]";
-    lockdownBtn.style.color = "#f00";
-    lockdownBtn.style.background = "rgba(30, 0, 0, 0.7)";
-  }
+  document.body.classList.toggle("lockdown-active", isLockdown);
+  lockdownBtn.textContent = isLockdown ? "[ OVERRIDE ]" : "[ LOCKDOWN ]";
 });
 
-// --- 11. LIVE ISS TELEMETRY ---
+// --- 11. ISS TELEMETRY ---
 async function fetchISSTelemetry() {
   const coordsEl = document.getElementById("iss-coords");
   const velEl = document.getElementById("iss-velocity");
   const altEl = document.getElementById("iss-altitude");
-
   try {
-    const response = await fetch(
-      "https://api.wheretheiss.at/v1/satellites/25544",
-    );
-    if (!response.ok) throw new Error("ISS Feed Offline");
-
-    const data = await response.json();
-
-    coordsEl.textContent = `${data.latitude.toFixed(4)}°, ${data.longitude.toFixed(4)}°`;
+    const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    coordsEl.textContent = `${data.latitude.toFixed(2)}°, ${data.longitude.toFixed(2)}°`;
     velEl.textContent = `${Math.round(data.velocity)} KM/H`;
     altEl.textContent = `${Math.round(data.altitude)} KM`;
-  } catch (error) {
-    coordsEl.textContent = "SIGNAL LOST";
-    velEl.textContent = "OFFLINE";
-    altEl.textContent = "OFFLINE";
+  } catch (e) {
+    coordsEl.textContent = "ERR";
+    velEl.textContent = "ERR";
+    altEl.textContent = "ERR";
   }
 }
-
 fetchISSTelemetry();
 setInterval(fetchISSTelemetry, 3000);
-fetchAPOD();
+
+// --- 12. ASTEROID TRACKER (NeoWs API) ---
+async function fetchAsteroidData() {
+  const apiKey = import.meta.env.VITE_NASA_API_KEY || "DEMO_KEY";
+  const today = new Date().toISOString().split("T")[0];
+  const nameEl = document.getElementById("ast-name");
+  const missEl = document.getElementById("ast-miss");
+  const velEl = document.getElementById("ast-vel");
+  const threatEl = document.getElementById("ast-threat");
+  try {
+    const res = await fetch(
+      `https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`,
+    );
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    const asteroids = data.near_earth_objects[today].sort(
+      (a, b) =>
+        parseFloat(a.close_approach_data[0].miss_distance.kilometers) -
+        parseFloat(b.close_approach_data[0].miss_distance.kilometers),
+    );
+    const closest = asteroids[0];
+    nameEl.textContent = closest.name.replace(/[()]/g, "");
+    missEl.textContent = `${Math.round(closest.close_approach_data[0].miss_distance.kilometers).toLocaleString()} KM`;
+    velEl.textContent = `${Math.round(closest.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString()} KM/H`;
+    threatEl.textContent = closest.is_potentially_hazardous_asteroid
+      ? "HAZARDOUS"
+      : "NOMINAL";
+    threatEl.style.color = closest.is_potentially_hazardous_asteroid
+      ? "var(--danger)"
+      : "var(--theme)";
+  } catch (e) {
+    nameEl.textContent = "ERR";
+    missEl.textContent = "ERR";
+    velEl.textContent = "ERR";
+    threatEl.textContent = "ERR";
+  }
+}
+fetchAsteroidData();
+
+// --- 13. EJECT SEQUENCE ---
+const ejectBtn = document.getElementById("eject-btn");
+const ejectOverlay = document.getElementById("eject-overlay");
+const rebootBtn = document.getElementById("reboot-btn");
+const hudInterface = document.querySelector(".hud-interface");
+ejectBtn.addEventListener("click", () => {
+  document.body.classList.add("shake");
+  ejectBtn.textContent = "INITIATING...";
+  setTimeout(() => {
+    document.body.classList.remove("shake");
+    hudInterface.classList.add("hidden");
+    document.body.style.backgroundImage = "none";
+    ejectOverlay.classList.remove("hidden");
+  }, 2000);
+});
+rebootBtn.addEventListener("click", () => {
+  ejectBtn.textContent = "[ EJECT ]";
+  ejectOverlay.classList.add("hidden");
+  hudInterface.classList.remove("hidden");
+  fetchAPOD();
+});
