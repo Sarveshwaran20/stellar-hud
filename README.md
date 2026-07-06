@@ -1,63 +1,23 @@
-This repository contains the complete frontend codebase for StarkOS v7.0, an interactive web-based desktop environment styled with a high-contrast, tactical cyberpunk aesthetic. The platform integrates real-time telemetry readouts, dynamic multi-window manipulation systems, core diagnostic tools, and an automated background script companion.
+# Stellar HUD
 
-🛠️ Core Functional Architecture
-📡 Mainframe HUD Display
-Dynamic 24h Clock: Parses and renders real-time military timestamps locally at the display center.
-
-Satellite Weather Sync: Leverages native browser Geolocation coordinates to query real-time local temperature and atmospheric updates via the OpenWeather API framework.
-
-Concentric Telemetry Rings: Features layered, CSS-animated rotating rings to complete the background telemetry aesthetic.
-
-💻 System Application Matrix
-J.A.R.V.I.S. Mainframe Shell: A central command console terminal that handles application threads, text output logs, and standalone brute-force vault decryption scripts.
-
-Secure Notes Logs: A persistent text repository utilizing client-side local database storage hooks. Includes direct script functions to export stored strings down to native text documents.
-
-Blueprint Schematic Canvas: A local image-loading workbench supporting canvas-driven visual filters (Hologram, Nightvision, and Warning configurations).
-
-Recon Media Feed: An asynchronous sandboxed visual frame utilizing standard embed configurations.
-
-Neural Snake Arcade: An isolated canvas grid gaming environment configured to process key events separately from primary OS rendering cycles.
-
-⏱️ Integrated Operational Payloads
-Tactical Timer: A precise standalone execution countdown module built with basic operational toggle controls ([ ENGAGE ] and [ ABORT ]).
-
-System Diagnostics: Queries system APIs asynchronously to provide real-time connection status feeds and battery health updates.
-
-Audio Link Node: A localized media mounting engine that plays audio tracking assets directly via the client machine without external API validation requirements.
-
-System Calculator: An arithmetic processing grid optimized to match the visual footprint of the mainframe interface windows.
-
-👾 Malware Spirit Companion
-Dock Pacing Automation: An animated script assistant designed to pace smoothly across the bottom taskbar boundary vectors. The coordinate bounds are strictly constrained to prevent menu clashing or overlapping icon elements.
-
-Idle Sleep Routines: Monitors active mouse and keyboard input events to shift the character into a low-glow breathing state after 45 seconds of system inactivity.
-
-Speech Feedback Loop: Generates dynamic text bubbles and terminal tooltips contextually aligned with resource hunger calculations.
-
-
-⌨️ J.A.R.V.I.S. Console Dictionary
-Open the central J.A.R.V.I.S. Mainframe Terminal window and input the following case-insensitive command keys to trigger system events:
-
-help - Retrieves the active index of authorized operational console command flags.
-
-open logs - Initializes the secure documentation log application window.
-
-open schematics - Displays the photo canvas workspace and filter array panel.
-
-open media - Renders the media video reconnaissance panel.
-
-play snake - Boots up the arcade neural collision canvas board.
-
-decrypt vault - Triggers a brute-force mathematical puzzle requiring numeric crypt verification keys.
-
-protocol 84 - Engages an emergency overlay layout accompanied by a critical self-destruct sequence.
-
-close all - Shuts down every active sub-window layout panel simultaneously.
-
-clear - Wipes all previously printed terminal lines from the current screen buffer.
-
-
-
+I built a retro sci-fi dashboard that replaces your boring browser new tab page. It looks like a space terminal and pulls real-time data from space, the weather, and your computer hardware.
 
 ![Stellar HUD Screenshot](screen.png)
+
+### [Try the live demo here](https://sarveshwaran20.github.io/stellar-hud/)
+
+To run it live, just click the link above. Throw the URL into your browser settings as your homepage or new tab page.
+
+*Note: Make sure to click "Allow" when it asks for your location, or the weather panel won't be able to find you.*
+
+Key features
+* **ISS Space Tracker:** Tracks the International Space Station and updates its exact location, speed, and altitude every 3 seconds.
+* **Keyless Weather:** Uses your GPS to grab your local temperature and weather without needing annoying login accounts.
+* **Hardware Stats:** Directly checks your laptop battery percentage, if it's plugged in, and your current internet speed.
+* **NASA Space Pic:** Grabs NASA's official "Space Picture of the Day" and throws it up as your background image.
+* **Focus Tools:** Has a 25-minute Pomodoro study timer and a notepad box that auto-saves your notes even if you close the tab.
+* **Lockdown & Eject Buttons:** Two fun buttons—one flashes the screen bright red for an emergency alert, and the other shakes the entire screen and simulates an absolute system crash.
+
+
+* **NOT AI GENERATED:**
+
